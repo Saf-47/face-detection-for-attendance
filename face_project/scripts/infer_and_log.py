@@ -15,10 +15,10 @@ from insightface.app import FaceAnalysis
 
 # Enrolled Identities (Exact mapping)
 ENROLLED_PEOPLE = {
-    "shafiq": "4SN23AD001",
-    "sudit": "4SN23AD00051",
-    "danush": "4SN23AD015",
-    "sujal": "4SN23AD0050"
+    "PERSON1": "4SN23ADXXXX",
+    "PERSON2": "4SN23ADXXXX",
+    "PERSON3": "4SN23ADXXXX",
+    "PRESON4": "4SN23ADXXXXX"
 }
 
 # Thresholds (Strict defaults)
