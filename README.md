@@ -47,7 +47,7 @@ pip install -r face_project/requirements.txt
 ### 2. Prepare Your Data (Videos)
 The system learns from short video clips of each person.
 1.  Record a **10-second video** of the person's face.
-2.  Name the file: `Name_USN.mp4` (e.g., `Shafiq_4SN23AD001.mp4`).
+2.  Name the file: `Name_ROLLNUM.mp4` (e.g., `XYZWEE_67DG789HH.mp4`).
 3.  Place these videos in the `face_project/videos/` folder.
 
 ### 3. Build the Model (3 Steps)
