@@ -25,7 +25,7 @@ ENROLLED_PEOPLE = {
 MIN_FACE_CONF = 0.70        # Detection confidence (Relaxed for webcam)
 SIMILARITY_THRESH = 0.50    # Cosine similarity (Relaxed for webcam)
 UNKNOWN_THRESH = 0.50       # Below this is unknown
-WINDOW_SECONDS = 30.0       # Confirmation window
+WINDOW_SECONDS = 15.0       # Confirmation window
 REQUIRED_CONSISTENCY = 0.60 # 60% consistency (Relaxed)
 MAX_GAP_SECONDS = 2.0       # Max gap before checking track continuity
 
