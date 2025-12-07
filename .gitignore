@@ -27,3 +27,9 @@ Thumbs.db
 # Project specific
 *.zip
 .gemini/
+
+# Sensitive Data (Privacy)
+face_project/videos/
+face_project/dataset/
+*.xlsx
+*.csv
