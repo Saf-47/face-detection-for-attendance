@@ -1,91 +1,105 @@
 # Face Recognition Attendance System
 
-A complete, CPU-based face recognition attendance project using InsightFace and SVM.
+A professional, privacy-focused, and efficient face recognition attendance system built with Python, InsightFace, and SVM. 
 
-> [!TIP]
-> For detailed architecture, configuration, and logic explanation, see [PROJECT_DOCUMENTATION.md](docs/PROJECT_DOCUMENTATION.md).
-> For methodology, see [METHODOLOGY.md](docs/METHODOLOGY.md).
-> For results and limitations, see [RESULTS_AND_LIMITATIONS.md](docs/RESULTS_AND_LIMITATIONS.md).
-> For diagrams and charts, see [GRAPHICAL_REPRESENTATIONS.md](docs/GRAPHICAL_REPRESENTATIONS.md).
+This project is designed to run locally on a CPU, ensuring data privacy while delivering high-accuracy recognition for verifying student attendance.
 
-## Project Structure
+---
+
+## 🚀 Key Features
+
+*   **High Accuracy**: Uses `InsightFace` (ArcFace) for state-of-the-art face embeddings.
+*   **Privacy-First**: No data is sent to the cloud. All face data and models are stored locally.
+*   **Real-Time Processing**: optimized for CPU inference to work on standard laptops.
+*   **Automated Logging**: Automatically logs verified attendance into a CSV file with timestamps.
+*   **Professional Architecture**: Modular code structure separating data extraction, training, and inference.
+
+## 📚 Documentation
+
+For deep dives into the system, check out our detailed documentation in the `docs/` folder:
+*   [**Project Documentation**](docs/PROJECT_DOCUMENTATION.md): Complete architecture and logic explanation.
+*   [**Methodology**](docs/METHODOLOGY.md): How the recognition pipeline works.
+*   [**Results & Limitations**](docs/RESULTS_AND_LIMITATIONS.md): Performance analysis.
+*   [**Graphical Representations**](docs/GRAPHICAL_REPRESENTATIONS.md): Flowcharts and diagrams.
+
+---
+
+## 🛠️ Quick Start Guide
+
+Follow these steps to set up and run the project on your machine.
+
+### Prerequisites
+-   Python 3.8 or higher.
+-   Visual Studio Build Tools (for C++ compilation required by some libraries).
+
+### 1. Installation
+Clone the repository and install the required dependencies.
+
+```powershell
+# Clone the repo
+git clone https://github.com/Saf-47/face-detection-for-attendance.git
+cd face-detection-for-attendance
+
+# Install dependencies
+pip install -r face_project/requirements.txt
 ```
-face_project/
-  videos/                  # Place your training videos here (Name_USN.mp4)
-  dataset/                 # Auto-generated face crops
-  scripts/                 # Python scripts
-  models/                  # Saved models
-  detections.xlsx          # Attendance log
-  requirements.txt         # Dependencies
-```
 
-## Setup
+### 2. Prepare Your Data (Videos)
+The system learns from short video clips of each person.
+1.  Record a **10-second video** of the person's face.
+2.  Name the file: `Name_USN.mp4` (e.g., `Shafiq_4SN23AD001.mp4`).
+3.  Place these videos in the `face_project/videos/` folder.
 
-1.  **Install Python 3.8+**
-2.  **Install Dependencies**:
-    Open PowerShell in the `face_project` folder (or root) and run:
-    ```powershell
-    pip install -r face_project/requirements.txt
-    ```
-    *Note: If you encounter errors with `insightface`, ensure you have "Visual Studio Build Tools" installed with "Desktop development with C++".*
+### 3. Build the Model (3 Steps)
+Run these commands in order to process the videos and train the recognition model.
 
-3.  **Prepare Videos**:
-    Place your short training videos (approx 10s) in the `face_project/videos/` folder.
-    **Filename Format**: `Name_USN.mp4` (e.g., `Shafiq_4SN23AD001.mp4`).
-    *The system uses the filename (excluding extension) as the person's label.*
-
-## Usage (Run Order)
-
-Run these commands in order from the project root.
-
-### 1. Extract Frames
-Extracts face images from your videos.
+**Step A: Extract Faces**
+Crops face images from your videos for the dataset.
 ```powershell
 python face_project/scripts/extract_frames.py
 ```
 
-### 2. Generate Embeddings
-Converts face images into numerical vectors.
+**Step B: Create Embeddings**
+Converts face images into mathematical vectors (embeddings).
 ```powershell
 python face_project/scripts/make_embeddings.py
 ```
 
-### 3. Train Classifier
-Trains the SVM model to recognize faces.
+**Step C: Train Classifier**
+Trains a lightweight Support Vector Machine (SVM) to recognize these embeddings.
 ```powershell
 python face_project/scripts/train_classifier.py
 ```
 
-### 4. Run Attendance (Inference)
-Starts the webcam, detects faces, and logs attendance.
+### 4. Run Attendance
+Start the live webcam system to take attendance.
 ```powershell
 python face_project/scripts/infer_and_log.py
 ```
-- Press `q` to quit.
-- Attendance is saved to `detections.csv` upon exit.
+*   **Quit**: Press `q` to exit.
+*   **Logs**: Check `detections.csv` for the attendance record.
 
+---
 
-### 5. Test Single Image (Optional)
-Test the model on a specific image file.
-```powershell
-python face_project/scripts/test_single.py path/to/image.jpg
-```
+## ⚙️ Configuration
 
-## Configuration
+You can customize the system by editing `face_project/scripts/infer_and_log.py`:
 
-You can modify `face_project/scripts/infer_and_log.py` to change settings:
+| Setting | Default | Description |
+| :--- | :--- | :--- |
+| `CONF_THRESH` | `0.60` | Confidence required to verify a face. Increase to reduce false positives. |
+| `DEDUP_SECONDS` | `10` | Seconds to wait before logging the same person again to avoid duplicate entries. |
+| `VIDEO_SOURCE` | `0` | Camera input. Use `0` for webcam or an RTSP URL for IP cameras. |
 
--   **`CONF_THRESH` (Default: 0.60)**: Confidence threshold. Increase (e.g., 0.75) to reduce false positives; decrease (e.g., 0.50) if faces aren't being recognized.
--   **`DEDUP_SECONDS` (Default: 10)**: Time in seconds to wait before logging the same person again.
--   **`VIDEO_SOURCE`**: Change `0` to a URL string (e.g., `"http://192.168.1.5:8080/video"`) to use an IP camera.
+---
 
-## Troubleshooting
+## ❓ Troubleshooting
 
--   **`insightface` install fails**: Try installing `onnxruntime` first. Ensure C++ build tools are installed.
--   **No faces detected**: Check lighting in videos. Ensure videos are in `.mp4` format.
--   **Camera not opening**: Check if another app is using the camera. Check privacy settings in Windows.
--   **PowerShell Security Error**: If you can't run scripts, try `Set-ExecutionPolicy Unrestricted -Scope Process`.
+*   **`insightface` Installation Error**: This often happens if C++ build tools are missing. Try installing `onnxruntime` separately or ensure you have "Desktop development with C++" installed via Visual Studio Installer.
+*   **No Faces Detected**: Ensure your training videos have good lighting and the face is clearly visible.
+*   **Permission Errors**: If PowerShell blocks script execution, run `Set-ExecutionPolicy Unrestricted -Scope Process`.
 
-## Output Format (CSV)
-The `detections.csv` file contains:
-`timestamp | date | time | frame_no | usn | name | confidence | top | right | bottom | left`
+---
+
+## 🛡️ License & Privacy
+This project is open-source. For privacy reasons, the public repository **does not contain any training data or trained models**. You must generate these locally using your own videos.
