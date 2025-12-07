@@ -33,3 +33,7 @@ face_project/videos/
 face_project/dataset/
 *.xlsx
 *.csv
+
+# Trained Models & Embeddings (Privacy)
+*.npy
+*.pkl
