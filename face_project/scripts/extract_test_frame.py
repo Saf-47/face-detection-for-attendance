@@ -1,7 +1,7 @@
 import cv2
 import os
 
-video_path = "face_project/videos/shafiq_4SN23AD001.mp4"
+video_path = "face_project/videos/PERSON1_4SN23ADXXXX.mp4"
 output_path = "face_project/test_frame_shafiq.jpg"
 
 if os.path.exists(video_path):
